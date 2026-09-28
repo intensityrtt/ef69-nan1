@@ -1,0 +1,19 @@
+# OS Files
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Google Drive Cloud Pointers
+*.gsheet
+*.gscript
+*.gslides
+*.gdoc
+
+# Temporary / Office Temp Files
+*.tmp
+~$*
+~*
+
+# Editor / IDE
+.vscode/
+.idea/

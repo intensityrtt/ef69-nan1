@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบการกำกับ ติดตาม และประเมินผล EF 69 | สพป.น่าน เขต 1</title>
+  
+  <!-- Meta & Favicon -->
+  <meta name="description" content="ระบบการกำกับ ติดตาม และประเมินผลการสร้างภูมิคุ้มกันด้วยการพัฒนาทักษะสมอง (EF) สำนักงานเขตพื้นที่การศึกษาประถมศึกษาน่าน เขต 1">
+  <meta name="theme-color" content="#1e40af">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+          fontFamily: {
+            sans: ['Sarabun', 'sans-serif'],
+            heading: ['Prompt', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- QRCode.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <!-- SheetJS (xlsx) for Excel Export -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-full flex flex-col antialiased text-slate-800 bg-slate-50">
+
+  <!-- Top Academic Navigation Bar -->
+  <nav class="sticky top-0 z-40 glass-header no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-2">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="window.EF_APP.navigate('home')">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-700 to-blue-900 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 border border-blue-400/30 shrink-0">
+            <i class="fas fa-brain text-amber-300"></i>
+          </div>
+          <div class="whitespace-nowrap">
+            <div class="flex items-center gap-2">
+              <span class="font-heading font-bold text-lg text-slate-900 leading-tight">ระบบประเมิน EF 69</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">สพป.น่าน 1</span>
+            </div>
+            <p class="text-xs text-slate-500 leading-tight">การสร้างภูมิคุ้มกันด้วยการพัฒนาทักษะสมอง • 145 โรงเรียน</p>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden xl:flex items-center gap-1.5 font-heading">
+          <button data-route="home" class="nav-link px-3 py-2 rounded-xl text-sm transition flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fas fa-home text-xs"></i>
+            <span>หน้าหลัก</span>
+          </button>
+          
+          <button data-route="school-hub" class="nav-link px-3 py-2 rounded-xl text-sm transition flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fas fa-school text-xs"></i>
+            <span>โรงเรียนในสังกัด & ส่งลิงก์</span>
+          </button>
+
+          <button data-route="eval-portal" class="nav-link px-3 py-2 rounded-xl text-sm transition flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fas fa-clipboard-check text-xs"></i>
+            <span>แบบประเมิน 5 ชุด</span>
+          </button>
+
+          <button data-route="academic-report" class="nav-link px-3 py-2 rounded-xl text-sm transition flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fas fa-chart-pie text-xs"></i>
+            <span>รายงานสารสนเทศ</span>
+          </button>
+
+          <button data-route="user-guide" class="nav-link px-3 py-2 rounded-xl text-sm transition flex items-center gap-1.5 whitespace-nowrap">
+            <i class="fas fa-book-reader text-xs text-blue-600"></i>
+            <span>คู่มือการใช้งาน</span>
+          </button>
+
+          <button data-route="admin" class="nav-link px-3.5 py-2 rounded-xl text-sm transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold border border-slate-300/80 whitespace-nowrap">
+            <i class="fas fa-user-shield text-blue-600 text-xs"></i>
+            <span>ผู้ดูแลระบบ</span>
+          </button>
+        </div>
+
+        <!-- Supervisor Badge -->
+        <div class="hidden lg:flex items-center gap-2.5 pl-3 border-l border-slate-200 shrink-0">
+          <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-bold border border-blue-200 shrink-0">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div class="text-left whitespace-nowrap">
+            <div class="text-xs font-bold text-slate-800 leading-tight">ศน.พุฒิพงษ์ วงศ์นันท์</div>
+            <div class="text-[11px] text-slate-500 leading-tight">ศึกษานิเทศก์ • โทร. 086-1161126</div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="xl:hidden">
+          <button id="btn-mobile-menu" class="p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 focus:outline-none">
+            <i class="fas fa-bars text-lg"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 shadow-lg font-heading">
+      <button data-route="home" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-blue-50 font-medium">หน้าหลัก</button>
+      <button data-route="school-hub" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-blue-50 font-medium">โรงเรียนในสังกัด & ส่งลิงก์ (145 แห่ง)</button>
+      <button data-route="eval-portal" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-blue-50 font-medium">แบบประเมิน 5 ชุด</button>
+      <button data-route="academic-report" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-blue-50 font-medium">รายงานสารสนเทศ</button>
+      <button data-route="user-guide" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-blue-50 font-medium">คู่มือการใช้งานระบบ</button>
+      <button data-route="admin" class="w-full text-left px-4 py-2.5 rounded-lg text-sm text-blue-700 bg-blue-50 font-bold">ผู้ดูแลระบบ</button>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+    
+    <!-- View 1: Home -->
+    <section id="view-home" class="view-container">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 2: School Hub & Quick Dispatch -->
+    <section id="view-school-hub" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 3: Evaluation Portal -->
+    <section id="view-eval-portal" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 4: Evaluation Form Runner -->
+    <section id="view-eval-form" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 5: Super Admin Control Center -->
+    <section id="view-admin" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 6: Academic Information Report -->
+    <section id="view-academic-report" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 7: Individual School Report -->
+    <section id="view-school-report" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- View 8: User Guide (คู่มือการใช้งานระบบสำหรับครูและสถานศึกษา) -->
+    <section id="view-user-guide" class="view-container hidden">
+      <!-- Injected by app.js -->
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-auto no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center sm:flex sm:items-center sm:justify-between">
+      <div class="text-xs text-slate-500 mb-4 sm:mb-0">
+        <p class="font-bold text-slate-700">โครงการส่งเสริมทักษะสมองเพื่อสร้างภูมิคุ้มกัน (Executive Functions : EF) ประจำปี 2569</p>
+        <p>สำนักงานเขตพื้นที่การศึกษาประถมศึกษาน่าน เขต 1 • ผู้รับผิดชอบโครงการ: นายพุฒิพงษ์ วงศ์นันท์ ศึกษานิเทศก์ (โทร. 086-1161126)</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 text-xs text-slate-500">
+        <button onclick="window.EF_APP.navigate('admin')" class="hover:text-blue-600 font-semibold transition flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full">
+          <i class="fas fa-lock text-[10px] text-slate-500"></i>
+          <span>เข้าสู่ระบบผู้ดูแลระบบ</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="schools_data.js?v=20260830_add_completed_card"></script>
+  <script src="questions_data.js?v=20260830_add_completed_card"></script>
+  <script src="app.js?v=20260830_add_completed_card"></script>
+</body>
+</html>
